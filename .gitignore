@@ -1,0 +1,6 @@
+*~
+*.swp
+collected_static
+reload
+uwsgi.ini
+

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>demo</title>
+        <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="/static/js/image-preview.js"></script>
+        <link rel="stylesheet" href="/static/css/viewer.min.css">
+        <script src="/static/js/viewer-jquery.min.js"></script>
+        <script src="/static/js/echarts.common.min.js"></script>
+
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <div>
+                        <p>Image Sample</p>
+                    </div>
+                    <ul id="dowebok">
+                        <li>
+                            <img data-original="/static/tibet-1.jpg" src="/static/small/tibet-1.jpg" alt="image-1">
+                        </li>
+                        <li>
+                            <img data-original="/static/tibet-5.jpg" src="/static/small/tibet-5.jpg" alt="image-5">
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <div>
+                        <p>Echart Sample</p>
+                    </div>
+                    <div id="sample1" style="width: 600px;height:400px;"></div>
+                    <div id="sample2" style="width: 600px;height:400px;"></div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript">
+        $(function(){
+            $("img").preview();
+            $('#dowebok').viewer({
+                url: 'data-original',
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(function(){
+
+            //var myChart1 = echarts.init($('#sample1'));
+            var myChart1 = echarts.init(document.getElementById('sample1'));
+            var myChart2 = echarts.init(document.getElementById('sample2'));
+            //var myChart2 = echarts.init($('#sample2'));
+
+            var option1 = {
+                backgroundColor: '#2c343c',
+                visualMap: {
+                    show: false,
+                    min: 80,
+                    max: 600,
+                    inRange: {
+                        colorLightness: [0, 1]
+                    }
+                },
+                series : [
+                {
+                    name: '访问来源',
+                    type: 'pie',
+                    radius: '55%',
+                    data:[
+                    {value:235, name:'item1'},
+                    {value:274, name:'item2'},
+                    {value:310, name:'item3'},
+                    {value:335, name:'item4'},
+                    {value:400, name:'item5'}
+                    ],
+                    roseType: 'angle',
+                    label: {
+                        normal: {
+                            textStyle: {
+                                color: 'rgba(255, 255, 255, 0.3)'
+                            }
+                        }
+                    },
+                    labelLine: {
+                        normal: {
+                            lineStyle: {
+                                color: 'rgba(255, 255, 255, 0.3)'
+                            }
+                        }
+                    },
+                    /*
+                       itemStyle: {
+                       normal: {
+                       color: '#c23531',
+                       shadowBlur: 200,
+                       shadowColor: 'rgba(0, 0, 0, 0.5)'
+                       }
+                       }
+                     */
+                }
+                ]
+            };
+            
+            var data1 = [];
+            var data2 = [];
+            var data3 = [];
+
+            var random = function (max) {
+                return (Math.random() * max).toFixed(3);
+            };
+
+            for (var i = 0; i < 500; i++) {
+                data1.push([random(15), random(10), random(1)]);
+                data2.push([random(10), random(10), random(1)]);
+                data3.push([random(15), random(10), random(1)]);
+            }
+
+            var option2 = {
+                animation: false,
+                legend: {
+                    data: ['scatter', 'scatter2', 'scatter3']
+                },
+                tooltip: {
+                },
+                xAxis: {
+                    type: 'value',
+                    min: 'dataMin',
+                    max: 'dataMax',
+                    splitLine: {
+                        show: true
+                    }
+                },
+                yAxis: {
+                    type: 'value',
+                    min: 'dataMin',
+                    max: 'dataMax',
+                    splitLine: {
+                        show: true
+                    }
+                },
+                dataZoom: [
+                {
+                    type: 'slider',
+                    show: true,
+                    xAxisIndex: [0],
+                    start: 1,
+                    end: 35
+                },
+                {
+                    type: 'slider',
+                    show: true,
+                    yAxisIndex: [0],
+                    left: '93%',
+                    start: 29,
+                    end: 36
+                },
+                {
+                    type: 'inside',
+                    xAxisIndex: [0],
+                    start: 1,
+                    end: 35
+                },
+                {
+                    type: 'inside',
+                    yAxisIndex: [0],
+                    start: 29,
+                    end: 36
+                }
+                ],
+                series: [
+                {
+                    name: 'scatter',
+                    type: 'scatter',
+                    itemStyle: {
+                        normal: {
+                            opacity: 0.8
+                        }
+                    },
+                    symbolSize: function (val) {
+                        return val[2] * 40;
+                    },
+                    data: data1
+                },
+                {
+                    name: 'scatter2',
+                    type: 'scatter',
+                    itemStyle: {
+                        normal: {
+                            opacity: 0.8
+                        }
+                    },
+                    symbolSize: function (val) {
+                        return val[2] * 40;
+                    },
+                    data: data2
+                },
+                {
+                    name: 'scatter3',
+                    type: 'scatter',
+                    itemStyle: {
+                        normal: {
+                            opacity: 0.8,
+                        }
+                    },
+                    symbolSize: function (val) {
+                        return val[2] * 40;
+                    },
+                    data: data3
+                }
+                ]
+            }
+
+            // 使用刚指定的配置项和数据显示图表。
+            myChart1.setOption(option1);
+
+            myChart2.setOption(option2);
+        });
+    </script>
+</html>
