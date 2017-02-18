@@ -16,8 +16,10 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from demo import views as demo_views
+from datatable import views as dt_views
 
 urlpatterns = [
     url(r'^demo/', demo_views.index, name="demo"),
+    url(r'^dt/', dt_views.index, name="dt"),
     url(r'^admin/', admin.site.urls),
 ]
